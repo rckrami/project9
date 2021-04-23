@@ -1,0 +1,55 @@
+class MathFunctions {
+    function int abs(int x) {
+        if( x < 0 ) {
+            let x = -x;
+        }
+        return x;
+    }
+
+    function int divide(int x, int y) {
+        var int neg_x;
+        var int neg_y;
+        var int q;
+        var int result;
+
+        let neg_x = x < 0;
+        let neg_y = y < 0;
+        let x = MathFunctions.abs(x);
+        let y = MathFunctions.abs(y);
+
+        if( y > x ) {
+            return 0;
+        }
+        let q = MathFunctions.divide(x, y+y);
+
+        if( x - ( 2*q*y ) < y ) {
+            let result = q+q;
+        }
+        else {
+            let result = q+q+1;
+        }
+
+        if( neg_x = neg_y ) {
+            return result;
+        }
+        else {
+            return -result;
+        }
+    }
+
+    function int mod(int x, int y) {
+        var int q;
+
+        let q = MathFunctions.divide(x, y);
+        return x - (q*y);
+    }
+
+    function int max(int a, int b) {
+        if( a > b ) {
+            return a;
+        }
+        else {
+            return b;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+class SnakeGame {
+   field Snake snake;
+   field Target target;
+   field int score;
+   field int scoreIncrease;
+
+   constructor SnakeGame new() {
+      let snake = Snake.new(0, 0, 16);
+      let target = Target.new(128, 128, 16);
+      let score = 0;
+      return this;
+   }
+
+   method void run() {
+      var char key;
+      var boolean exit;
+      let exit = false;
+
+      while (~exit) {
+       let key = Keyboard.keyPressed();
+       do snake.move();
+       if (~(snake.collision()) ) {
+				if (key > 129) {
+					do snake.setDirection(key - 129);
+				}
+				if (snake.collidesTarget(target)) {
+					let score = score + 1;
+					do snake.incrementLength();
+					do target.place();
+				}
+				do snake.draw();
+				do Sys.wait(100);
+			}
+			else {
+				let exit = true;
+			}
+	   }
+
+	   do Output.moveCursor(11, 26);
+	   do Output.printString("YOUR SCORE IS : ");
+	   do Output.printInt(score);
+		return;
+	}
+
+   method void dispose() {
+      do snake.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+}

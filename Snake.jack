@@ -1,0 +1,82 @@
+class Snake {
+	field int x;
+	field int y;
+	field int direction;
+	field int length;
+	field int size;
+	field Queue elements;
+
+	constructor Snake new(int X, int Y, int Size) {
+		let x = X;
+		let y = Y;
+		let size = Size;
+		let direction = 3;
+		let length = 3;
+		let elements = Queue.new(x, y);
+		do drawSquare(true, x, y);
+		return this;
+	}
+
+	method void incrementLength()	{
+			let length = length + 1;
+			return;
+	}
+
+	method void setDirection(int d) {
+		if (~(MathFunctions.mod(d,2) = MathFunctions.mod(direction, 2))) {
+			let direction = d;
+		}
+		return;
+	}
+
+	method void drawSquare(boolean color, int x, int y) {
+		do Screen.setColor(color);
+		do Screen.drawRectangle(x, y, x + size - 1, y + size - 1);
+		return;
+	}
+
+	method void draw() {
+		var List tail;
+		do elements.push(x, y);
+		if (length < elements.size()) {
+			let tail = elements.pop();
+			do drawSquare(false, tail.getX(), tail.getY());
+		}
+		do drawSquare(true, x, y);
+		return;
+	}
+
+	method boolean collidesTarget(Target f) {
+		var boolean collision;
+		let collision = ((x = f.getX()) & (y = f.getY()));
+		return collision;
+	}
+
+	method boolean collision() {
+		var boolean boundaryCollision;
+		let boundaryCollision = ((x < 0) | (x > 511) | (y < 0) | (y > 255) | elements.contains(x, y));
+		return boundaryCollision;
+	}
+
+	method void move() {
+		if (direction = 1) {
+			let x = x - size;
+		}
+		if (direction = 2) {
+			let y = y - size;
+		}
+		if (direction = 3) {
+			let x = x + size;
+		}
+		if (direction = 4) {
+			let y = y + size;
+		}
+		return;
+	}
+
+	method void dispose() {
+		do elements.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+}

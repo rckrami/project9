@@ -1,0 +1,54 @@
+class Queue {
+   field List front;
+   field List back;
+   field int size;
+
+   constructor Queue new(int x, int y) {
+		let front = List.new(x, y);
+   	let size = 1;
+   	let back = front;
+   	return this;
+   }
+
+	method int size() {
+      return size;
+    }
+
+	method void push(int x, int y) {
+		var List newElement;
+		let newElement = List.new(x, y);
+		do back.setNext(newElement);
+		let back = newElement;
+		let size = size + 1;
+		return;
+	}
+
+   method List pop() {
+		var List nextElement;
+    var List element;
+		let nextElement = front.getNext();
+		let element = List.new(front.getX(), front.getY());
+		do Memory.deAlloc(front);
+		let front = nextElement;
+		let size = size - 1;
+		return element;
+	}
+
+   method boolean contains(int x, int y) {
+		var List current;
+		let current = front;
+		while (~(current = null)) {
+			if ((current.getX() = x) & (current.getY() = y)) {
+				return true;
+			}
+			let current = current.getNext();
+		}
+		return false;
+	}
+
+	method void dispose() {
+		do front.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+}

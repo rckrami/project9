@@ -1,0 +1,42 @@
+class Target {
+	field int x, y, size;
+
+	constructor Target new (int X, int Y, int Size) {
+		let x = X;
+		let y = Y;
+		let size = Size;
+		do draw();
+		return this;
+	}
+
+	method int getX() {
+	 	return x;
+	}
+	method int getY() {
+		return y;
+	}
+
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + size - 1, y + size - 1);
+		return;
+	}
+
+	method void place() {
+		let x = Random.between(0, 32);
+		let y = Random.between(0, 16);
+		while (Memory.peek((x/16)+(y*32)+16384)) {
+			let x = Random.between(0, 32);
+			let y = Random.between(0, 16);
+		}
+		do draw();
+		return;
+	}
+
+
+
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+}

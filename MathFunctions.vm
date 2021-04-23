@@ -1,0 +1,107 @@
+function MathFunctions.abs 0
+push argument 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+neg
+pop argument 0
+label IF_FALSE0
+push argument 0
+return
+function MathFunctions.divide 4
+push argument 0
+push constant 0
+lt
+pop local 0
+push argument 1
+push constant 0
+lt
+pop local 1
+push argument 0
+call MathFunctions.abs 1
+pop argument 0
+push argument 1
+call MathFunctions.abs 1
+pop argument 1
+push argument 1
+push argument 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push argument 0
+push argument 1
+push argument 1
+add
+call MathFunctions.divide 2
+pop local 2
+push argument 0
+push constant 2
+push local 2
+call Math.multiply 2
+push argument 1
+call Math.multiply 2
+sub
+push argument 1
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+push local 2
+add
+pop local 3
+goto IF_END1
+label IF_FALSE1
+push local 2
+push local 2
+add
+push constant 1
+add
+pop local 3
+label IF_END1
+push local 0
+push local 1
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 3
+return
+goto IF_END2
+label IF_FALSE2
+push local 3
+neg
+return
+label IF_END2
+function MathFunctions.mod 1
+push argument 0
+push argument 1
+call MathFunctions.divide 2
+pop local 0
+push argument 0
+push local 0
+push argument 1
+call Math.multiply 2
+sub
+return
+function MathFunctions.max 0
+push argument 0
+push argument 1
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+return
+goto IF_END0
+label IF_FALSE0
+push argument 1
+return
+label IF_END0

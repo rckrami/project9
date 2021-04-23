@@ -1,0 +1,35 @@
+class List {
+   field int x;
+   field int y;
+   field List next;
+
+   constructor List new(int X, int Y) {
+   	let x = X;
+   	let y = Y;
+   	let next = null;
+   	return this;
+   }
+
+   method int getX() 	{
+      return x;
+    }
+   method int getY() 	{
+      return y;
+    }
+   method int getNext() {
+      return next;
+    }
+
+   method void setNext(List n) {
+      let next = n;
+      return;
+    }
+
+	method void dispose() {
+   	if (~(next = null)) {
+			do next.dispose();
+		}
+		do Memory.deAlloc(this);
+		return;
+	}
+}
